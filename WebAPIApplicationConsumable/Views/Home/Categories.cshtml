@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+<ol id="categoryList"></ol>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $.get("/api/Category", function (data) {
+                $.each(data, function (index, value) {
+                    $("#categoryList").append("<li>" + value.name + "</li>");
+                });
+            });
+        });
+    </script>
+}

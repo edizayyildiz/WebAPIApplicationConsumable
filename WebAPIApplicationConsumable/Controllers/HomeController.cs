@@ -14,5 +14,10 @@ namespace WebAPIApplicationConsumable.Controllers
 
             return View();
         }
+
+        public ActionResult Categories()
+        {
+            return View();
+        }
     }
 }
