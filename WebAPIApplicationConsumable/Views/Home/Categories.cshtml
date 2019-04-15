@@ -4,15 +4,41 @@
 }
 
 <h2>Categories</h2>
+
 <ol id="categoryList"></ol>
-@section scripts{
+
+Kategori Adı :  <input type="text" id="Name" />
+Kategori Açıklaması : <input type="text" id="Description" />
+<button id="post">Kaydet</button>
+
+
+@section scripts
+    {
     <script>
         $(document).ready(function () {
-            $.get("/api/Category", function (data) {
-                $.each(data, function (index, value) {
-                    $("#categoryList").append("<li>" + value.name + "</li>");
+            loadData();
+            $("#post").click(function () {
+                var name = $("#Name").val();
+                var description = $("#Description").val();
+                var category = { Name: name, Description: description };
+                $.post("/api/Category", category, function (result) {
+                    if (result == true) {
+                        alert("İşlem Başarılı");
+                        loadData();
+                    }
+                    else {
+                        alert("İşlem Başarısız");
+                    }
                 });
             });
+            function loadData() {
+                $("#categoryList").empty();
+                $.get("/api/Category", function (data) {
+                    $.each(data, function (index, value) {
+                        $("#categoryList").append("<li>" + value.name + " : " + value.description + "</li>");
+                    });
+                });
+            }
         });
     </script>
 }

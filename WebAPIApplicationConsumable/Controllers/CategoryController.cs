@@ -17,5 +17,21 @@ namespace WebAPIApplicationConsumable.Controllers
                 return db.Categories.ToList();
             }
         }
+        public bool Post([FromBody]Category category)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                try
+                {
+                    db.Categories.Add(category);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
